@@ -37,7 +37,7 @@ export const data = (x: number, displayType: keyof typeof DisplayType = DisplayT
     n = 3
   }
 
-  return Array.from(Array(n).keys()).map((x, i) => {
+  return Array.from(Array(n).keys()).map((_, i) => {
     const yValue = randomInteger(1000, 9999)
     const y2Value = randomInteger(1000,9999)
     const yValueDivided = yValue / 1000
