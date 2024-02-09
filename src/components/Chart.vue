@@ -26,6 +26,10 @@ const tickFormatX = (tick: number): string => {
   return label || ''
 }
 
+const tickTextWidthX = computed(() => {
+  return 100
+})
+
 const getMonthName = (monthNumber: number) => {
   const date = new Date();
   date.setMonth(monthNumber - 1);
@@ -124,7 +128,7 @@ watch(props, () => {
 </script>
 
 <template>
-  <div id="chart">
+  <div id="chart" :class="`chart-type-${props.tab.toLowerCase()}`">
     <VisXYContainer :height="200" :data="chartData.income" :sizing="Sizing.Extend" :yDomain="[0, 10]">
       <VisStackedBar :key="chartKey" :barPadding="0.2" :x="(d: DataRecord) => d.x" :y="(d: DataRecord) => d.y"
         color="#A9CB01" :events="events" :attributes="attributes" ref="incomeBar" :duration="800" />
@@ -142,7 +146,7 @@ watch(props, () => {
     <VisXYContainer :height="220" yDirection="south" :data="chartData.expense" :yDomain="[0, 10]">
       <VisStackedBar :key="chartKey" :barPadding="0.2" :x="(d: DataRecord) => d.x" :y="(d: DataRecord) => d.y2"
         color="#D2D2D7" :events="events" :attributes="attributes" :duration="800" />
-      <VisAxis type="x" :tickFormat="tickFormatX" :numTicks="xAxisNumTicks" :gridLine="false" :domainLine="false" :tickLine="false" />
+      <VisAxis type="x" :tickFormat="tickFormatX" :tickTextWidth="tickTextWidthX" :numTicks="xAxisNumTicks" :gridLine="false" :domainLine="false" :tickLine="false" />
       <VisAxis type="y" :tickFormat="tickFormatY" :gridLine="false" :domainLine="false" :tickLine="false"
         :tickValues="[0, 2, 5, 7.5, 10]" tickTextFontSize="14px" />
       <VisTooltip :triggers="triggers" :vertical-placement="Position.Center" />
