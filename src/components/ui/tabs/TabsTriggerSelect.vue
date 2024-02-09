@@ -22,11 +22,11 @@ const emit = defineEmits(['update:modelValue'])
 
 const tabsTrigger = ref()
 const props = defineProps<TabsTriggerProps & { class?: string }>()
-const handleSelectClick = (val) => {
+const handleSelectClick = () => {
   tabsTrigger.value.$el.click()
 }
 
-const onSelectChange = (val) => {
+const onSelectChange = (val: string) => {
   emit("update:modelValue", val)
 }
 </script>
@@ -38,7 +38,7 @@ const onSelectChange = (val) => {
   )
     ">
     <div class="inline cursor-pointer">Monthly<span class="mx-1 font-black">·</span></div>
-    <SelectRoot class="w-100" @update:open="handleSelectClick" :default-value="1" @update:modelValue
+    <SelectRoot class="w-100" @update:open="handleSelectClick" :default-value="String(1)" @update:modelValue
 ="onSelectChange">
       <SelectTrigger class="flex items-center">
         <SelectValue />
@@ -56,7 +56,7 @@ const onSelectChange = (val) => {
             <SelectGroup>
               <SelectItem v-for="(option, index) in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']" :key="index"
                 class="text-[13px] leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
-                :value="index+1">
+                :value="String(index+1)">
                 <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
                   <Icon icon="radix-icons:check" />
                 </SelectItemIndicator>

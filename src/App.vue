@@ -14,11 +14,11 @@ const tabs = ref<DisplayType>(DisplayType.Monthly);
 const chartData = ref<DataRecord[]>(data(month.value || 1, tabs.value, 'income'))
 const chartDataExpense = ref<DataRecord[]>(data(month.value || 1, tabs.value, 'expense'))
 
-const onTabChange = (val: DisplayType) => {
+const onTabChange = (val: string) => {
   console.log('tes')
-  console.log(data(month.value, val, 'income'))
-  chartData.value = data(month.value, val, 'income')
-  chartDataExpense.value = data(month.value, val, 'expense')
+  console.log(data(month.value, val as DisplayType, 'income'))
+  chartData.value = data(month.value, val as DisplayType, 'income')
+  chartDataExpense.value = data(month.value, val as DisplayType, 'expense')
 }
 
 const onMonthChange = (month: number) => {

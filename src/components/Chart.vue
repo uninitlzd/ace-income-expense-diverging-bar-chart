@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { VisXYContainer, VisStackedBar, VisAxis, VisTooltip } from '@unovis/vue'
-import { DataRecord, DisplayType, randomInteger } from './data.ts'
+import { DataRecord, DisplayType } from './data.ts'
 import { Position, Sizing, StackedBar } from '@unovis/ts';
-import { computed, ref, toRef, watch } from 'vue';
-import ChartTooltip from './ui/ChartTooltip.vue';
+import { computed, ref, watch } from 'vue';
 
-// const tickValues = [1,2]
 const tickFormat = (tick: number) => {
   return (tick == 0) ? '' : `$ ${tick}k`
 }
@@ -62,17 +60,17 @@ const events = {
     },
   },
   [StackedBar.selectors.barGroup]: {
-    mouseover: (_, e: Event) => {
-      const barWrapper = e.target?.parentElement.parentElement
-      const targetElement: HTMLElement = e.target?.parentElement
-      barWrapper.classList.add("stackedbar--hovered")
-      targetElement.classList.add("hovered")
+    mouseover: (_: any, e: MouseEvent) => {
+      const barWrapper = (e.target as HTMLElement).parentElement?.parentElement
+      const targetElement: HTMLElement | null = (e.target as HTMLElement)?.parentElement
+      barWrapper?.classList.add("stackedbar--hovered")
+      targetElement?.classList.add("hovered")
     },
-    mouseout: (_, e: Event) => {
-      const barWrapper = e.target?.parentElement.parentElement
-      const targetElement: HTMLElement = e.target?.parentElement
-      barWrapper.classList.remove("stackedbar--hovered")
-      targetElement.classList.remove("hovered")
+    mouseout: (_: any, e: MouseEvent) => {
+      const barWrapper = (e.target as HTMLElement).parentElement?.parentElement
+      const targetElement: HTMLElement | null = (e.target as HTMLElement)?.parentElement
+      barWrapper?.classList.remove("stackedbar--hovered")
+      targetElement?.classList.remove("hovered")
     }
   },
 }
