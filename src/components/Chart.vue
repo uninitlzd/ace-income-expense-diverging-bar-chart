@@ -27,7 +27,7 @@ const tickFormatX = (tick: number): string => {
 }
 
 const tickTextWidthX = computed(() => {
-  return 100
+  return 80
 })
 
 const getMonthName = (monthNumber: number) => {

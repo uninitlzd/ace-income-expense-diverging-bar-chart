@@ -27,7 +27,7 @@ const onMonthChange = (month: number) => {
 </script>
 
 <template>
-  <Card style="width: 1000px; min-height: 500px; margin: 100px auto;">
+  <Card style="width: 1000px; min-height: 500px; margin: 100px auto;" class="overflow-hidden">
     <CardHeader class="border-b py-2">
       <div class="flex">
         <div class="w-full flex items-center">
