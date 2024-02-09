@@ -71,11 +71,6 @@ const triggers = {
 }
 
 const events = {
-  [StackedBar.selectors.bar]: {
-    click: (d: DataRecord) => {
-      console.log(d)
-    },
-  },
   [StackedBar.selectors.barGroup]: {
     mouseover: (_: any, e: MouseEvent) => {
       const barWrapper = (e.target as HTMLElement).parentElement?.parentElement
