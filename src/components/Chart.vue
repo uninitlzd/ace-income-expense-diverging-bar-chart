@@ -4,8 +4,26 @@ import { DataRecord, DisplayType } from './data.ts'
 import { Position, Sizing, StackedBar } from '@unovis/ts';
 import { computed, ref, watch } from 'vue';
 
-const tickFormat = (tick: number) => {
+const tickFormatY = (tick: number) => {
   return (tick == 0) ? '' : `$ ${tick}k`
+}
+
+const tickFormatX = (tick: number): string => {
+  if (props.tab == DisplayType.Monthly)
+    return String(tick)
+
+  if (props.tab == DisplayType.Anually) {
+    const year = 2022
+    return tick % 1 == 0 ? (String(year + tick)) : ''
+  }
+
+  let label = {
+    1: 'Q1 Jan - Mar',
+    2: 'Q2 Apr - Jun',
+    3: 'Q3 Jul - Sep',
+    4: 'Q4 Oct - Dec',
+  }[tick]
+  return label || ''
 }
 
 const getMonthName = (monthNumber: number) => {
@@ -14,7 +32,6 @@ const getMonthName = (monthNumber: number) => {
 
   return date.toLocaleString('en-US', { month: 'short' });
 }
-
 
 const triggers = {
   [StackedBar.selectors.bar]: (d: DataRecord) => {
@@ -116,7 +133,7 @@ watch(props, () => {
     <VisXYContainer :height="200" :data="chartData.income" :sizing="Sizing.Extend" :yDomain="[0, 10]">
       <VisStackedBar :key="chartKey" :barPadding="0.2" :x="(d: DataRecord) => d.x" :y="(d: DataRecord) => d.y"
         color="#A9CB01" :events="events" :attributes="attributes" ref="incomeBar" :duration="800" />
-      <VisAxis type="y" :tickFormat="tickFormat" :gridLine="false" :domainLine="false" :tickLine="false"
+      <VisAxis type="y" :tickFormat="tickFormatY" :gridLine="false" :domainLine="false" :tickLine="false"
         :tickValues="[0, 2.5, 5, 7.5, 10]" tickTextFontSize="14px" />
       <VisTooltip :triggers="triggers" :vertical-placement="Position.Center"
         :attributes="{ type: 'tooltip-container' }" />
@@ -130,8 +147,8 @@ watch(props, () => {
     <VisXYContainer :height="220" yDirection="south" :data="chartData.expense" :yDomain="[0, 10]">
       <VisStackedBar :key="chartKey" :barPadding="0.2" :x="(d: DataRecord) => d.x" :y="(d: DataRecord) => d.y2"
         color="#D2D2D7" :events="events" :attributes="attributes" :duration="800" />
-      <VisAxis type="x" :numTicks="xAxisNumTicks" :gridLine="false" :domainLine="false" :tickLine="false" />
-      <VisAxis type="y" :tickFormat="tickFormat" :gridLine="false" :domainLine="false" :tickLine="false"
+      <VisAxis type="x" :tickFormat="tickFormatX" :numTicks="xAxisNumTicks" :gridLine="false" :domainLine="false" :tickLine="false" />
+      <VisAxis type="y" :tickFormat="tickFormatY" :gridLine="false" :domainLine="false" :tickLine="false"
         :tickValues="[0, 2, 5, 7.5, 10]" tickTextFontSize="14px" />
       <VisTooltip :triggers="triggers" :vertical-placement="Position.Center" />
     </VisXYContainer>
